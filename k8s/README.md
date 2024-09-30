@@ -1,5 +1,5 @@
 # Kubernestes cluster
-Detail instruction on how to setup K8S cluster
+Detail instruction on how to setup K8S cluster.
 
 ## Prerequisites
 * [AWS CLI v2.7+](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
@@ -25,7 +25,7 @@ You must login to gitlab registry first
 $ docker login registry.gitlab.com
 ```
 
-(**!Important**) You need to delete credStore in *.docker/config.json* (because pull secret will create from config.json file, so credential auth data must write into config file instead of store in machine)
+(**!Important**) You need to delete credStore in *.docker/config.json* (because pull secret will create from config.json file, hence credentials auth data must write into config file instead of store in machine)
 
 * Create pull secret from docker config local
 ```bash
