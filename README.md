@@ -9,11 +9,10 @@ The high-level architecture of the system
 Main components:
 - EKS K8S cluster
 - Istio service mesh
-- Istio Ingress gateway
-- Application load balancer ALB
+- Application load balancer ALB, Istio ingress-gateway
+- Databases service: RDS Aurora, S3, OpenSearch (ELK), Redis (ElasticCache)
 - Cloudflare CDN
 - Observability stack: ELK (Logs), Prometheus (Metrics), Jaeger (Tracing)
-- Databases service: RDS Aurora, S3, OpenSearch (ELK), Redis (ElasticCache)
 
 ## Prerequisites
 
@@ -38,9 +37,12 @@ Installation steps in order:
 - [ElastiCache Redis](./elasticache/README.md)
 - [S3 bucket](./s3/README.md)
 - [SQS queues](./sqs/README.md)
+- [Observability](./observability/README.md)
 
 ## Cleanup
+
 - Delete all service charts in prod namespaces
+
 ```bash
 $ helm delete <service-name> -n prod
 ```
