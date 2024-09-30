@@ -1,0 +1,1 @@
+![Architecture](./system_architecture_diagram.png)

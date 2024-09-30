@@ -1,0 +1,208 @@
+{
+	"Version": "2012-10-17",
+	"Statement": [
+	    {
+			"Sid": "FullControlOnServices",
+			"Effect": "Allow",
+			"Action": [
+			  "glue:*",
+				"elasticache:*",
+				"access-analyzer:*",
+				"servicecatalog:*",
+				"apigateway:*",
+				"ec2:*",
+        "elasticloadbalancing:*",
+				"secretsmanager:*",
+				"s3:*",
+				"cloudwatch:*",
+				"cloudfront:*",
+				"rds:*",
+				"waf:*",
+				"eks:*",
+				"kms:*",
+				"wafv2:*",
+				"aps:*",
+				"es:*",
+				"acm:*",
+				"ecr:*",
+				"ses:*",
+				"sqs:*",
+				"logs:*",
+				"ssm:*",
+				"ec2messages:*",
+				"cloudformation:*"
+			],
+			"Resource": "*"
+		},
+		{
+			"Sid": "IAMPermissions",
+			"Effect": "Allow",
+			"Action": [
+				"iam:ListServerCertificates",
+				"iam:RemoveRoleFromInstanceProfile",
+				"iam:CreateRole",
+				"iam:AttachRolePolicy",
+				"iam:PutRolePolicy",
+				"iam:ListSigningCertificates",
+				"iam:AddRoleToInstanceProfile",
+				"iam:DetachRolePolicy",
+				"iam:ListPolicies",
+				"iam:GetRole",
+				"iam:DeleteRole",
+				"iam:DeleteServiceLinkedRole",
+				"iam:GetRolePolicy",
+				"iam:CreateInstanceProfile",
+				"iam:TagRole",
+				"iam:DeletePolicy",
+				"tag:GetTagKeys",
+				"iam:ListInstanceProfilesForRole",
+				"iam:DeleteRolePolicy",
+				"iam:DeleteInstanceProfile",
+				"iam:GetInstanceProfile",
+				"iam:ListRoles",
+				"iam:ListInstanceProfiles",
+				"iam:CreatePolicy",
+				"iam:ListPolicyVersions",
+				"iam:ListOpenIDConnectProviders",
+				"iam:ListServerCertificateTags",
+				"cloudtrail:LookupEvents",
+				"ds:CreateComputer",
+				"ds:DescribeDirectories",
+				"ssmmessages:CreateControlChannel",
+				"ssmmessages:CreateDataChannel",
+				"ssmmessages:OpenControlChannel",
+				"ssmmessages:OpenDataChannel"
+			],
+			"Resource": "*"
+		},
+    {
+      "Sid": "IAMServiceLinkedRole",
+      "Action": "iam:CreateServiceLinkedRole",
+      "Effect": "Allow",
+      "Resource": "arn:aws:iam::*:role/aws-service-role/rds.amazonaws.com/AWSServiceRoleForRDS",
+      "Condition": {
+          "StringLike": {
+              "iam:AWSServiceName":"rds.amazonaws.com"
+          }
+      }
+    },
+		{
+			"Sid": "VisualEditor0",
+			"Effect": "Allow",
+			"Action": [
+				"iam:CreateServiceLinkedRole"
+			],
+			"Resource": "*",
+			"Condition": {
+				"StringLike": {
+					"iam:AWSServiceName": [
+						"replication.ecr.amazonaws.com",
+						"ssm.amazonaws.com",
+						"elasticache.amazonaws.com",
+						"lambda.amazonaws.com",
+            "opensearchservice.amazonaws.com"
+					]
+				}
+			}
+		},
+		{
+			"Sid": "VisualEditor1",
+			"Effect": "Allow",
+			"Action": [
+				"iam:PassRole",
+				"iam:CreateServiceLinkedRole",
+				"iam:*OpenIDConnectProvider"
+			],
+			"Resource": [
+				"arn:aws:iam::*:oidc-provider/oidc.eks.*",
+				"arn:aws:iam::054948048559:role/AWSGlueCatalog*"
+			]
+		},
+		{
+			"Sid": "VisualEditor2",
+			"Effect": "Allow",
+			"Action": [
+				"iam:GetServiceLinkedRoleDeletionStatus",
+				"iam:DeleteServiceLinkedRole",
+				"iam:PutRolePolicy"
+			],
+			"Resource": [
+				"arn:aws:iam::*:role/aws-service-role/elasticache.amazonaws.com/AWSServiceRoleForElastiCache*",
+				"arn:aws:iam::*:role/aws-service-role/ssm.amazonaws.com/AWSServiceRoleForAmazonSSM*"
+			]
+		},
+		{
+			"Sid": "VisualEditor4",
+			"Effect": "Allow",
+			"Action": "cloudfront:*",
+			"Resource": [
+				"arn:aws:cloudfront::*:realtime-log-config/*",
+				"arn:aws:cloudfront::*:field-level-encryption-profile/*",
+				"arn:aws:cloudfront::*:streaming-distribution/*",
+				"arn:aws:cloudfront::*:distribution/*",
+				"arn:aws:cloudfront::*:origin-access-identity/*",
+				"arn:aws:cloudfront::*:cache-policy/*",
+				"arn:aws:cloudfront::*:origin-access-control/*",
+				"arn:aws:cloudfront::*:function/*",
+				"arn:aws:cloudfront::*:origin-request-policy/*",
+				"arn:aws:cloudfront::*:field-level-encryption-config/*",
+				"arn:aws:cloudfront::*:continuous-deployment-policy/*",
+				"arn:aws:cloudfront::*:response-headers-policy/*"
+			]
+		},
+		{
+			"Sid": "VisualEditor5",
+			"Effect": "Allow",
+			"Action": "iam:ListServerCertificates",
+			"Resource": "arn:aws:iam::*:server-certificate/cloudfront/*"
+		},
+		{
+			"Sid": "VisualEditor6",
+			"Effect": "Allow",
+			"Action": "iam:*",
+			"Resource": "arn:aws:iam::*:role/dare_metastore"
+		},
+		{
+			"Sid": "AllowViewAccountInfo",
+			"Effect": "Allow",
+			"Action": [
+				"iam:GetAccountPasswordPolicy",
+				"iam:GetAccountSummary"
+			],
+			"Resource": "*"
+		},
+		{
+			"Sid": "AllowManageOwnPasswords",
+			"Effect": "Allow",
+			"Action": [
+				"iam:ChangePassword",
+				"iam:GetUser"
+			],
+			"Resource": "arn:aws:iam::*:user/${aws:username}"
+		},
+		{
+			"Sid": "AllowManageOwnAccessKeys",
+			"Effect": "Allow",
+			"Action": [
+				"iam:CreateAccessKey",
+				"iam:DeleteAccessKey",
+				"iam:ListAccessKeys",
+				"iam:UpdateAccessKey",
+				"iam:GetAccessKeyLastUsed"
+			],
+			"Resource": "arn:aws:iam::*:user/${aws:username}"
+		},
+		{
+			"Sid": "AllowManageOwnSSHPublicKeys",
+			"Effect": "Allow",
+			"Action": [
+				"iam:DeleteSSHPublicKey",
+				"iam:GetSSHPublicKey",
+				"iam:ListSSHPublicKeys",
+				"iam:UpdateSSHPublicKey",
+				"iam:UploadSSHPublicKey"
+			],
+			"Resource": "arn:aws:iam::*:user/${aws:username}"
+		}
+	]
+}

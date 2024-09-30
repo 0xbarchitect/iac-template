@@ -1,0 +1,128 @@
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "AllowViewAccountInfo",
+			"Effect": "Allow",
+			"Action": [
+				"iam:GetAccountPasswordPolicy",
+				"iam:GetAccountSummary"
+			],
+			"Resource": "*"
+		},
+		{
+			"Sid": "AllowManageOwnPasswords",
+			"Effect": "Allow",
+			"Action": [
+				"iam:ChangePassword",
+				"iam:GetUser"
+			],
+			"Resource": "arn:aws:iam::*:user/${aws:username}"
+		},
+		{
+			"Sid": "AllowManageOwnAccessKeys",
+			"Effect": "Allow",
+			"Action": [
+				"iam:CreateAccessKey",
+				"iam:DeleteAccessKey",
+				"iam:ListAccessKeys",
+				"iam:UpdateAccessKey",
+				"iam:GetAccessKeyLastUsed"
+			],
+			"Resource": "arn:aws:iam::*:user/${aws:username}"
+		},
+		{
+			"Sid": "AllowManageOwnSSHPublicKeys",
+			"Effect": "Allow",
+			"Action": [
+				"iam:DeleteSSHPublicKey",
+				"iam:GetSSHPublicKey",
+				"iam:ListSSHPublicKeys",
+				"iam:UpdateSSHPublicKey",
+				"iam:UploadSSHPublicKey"
+			],
+			"Resource": "arn:aws:iam::*:user/${aws:username}"
+		},
+    {
+      "Sid": "AllowListSecretDev",
+			"Effect": "Allow",
+			"Action": [
+        "secretsmanager:ListSecrets"
+			],
+			"Resource": "*"      
+    },
+    {
+      "Sid": "AllowAccessSecretDev",
+			"Effect": "Allow",
+			"Action": [
+				"secretsmanager:GetSecretValue",
+        "secretsmanager:DescribeSecret"
+			],
+			"Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "secretsmanager:ResourceTag/env": ["stage", "dev"]
+        }
+      }
+    },
+    {
+      "Sid": "AllowListAllMyBucketS3Dev",
+			"Effect": "Allow",
+			"Action": [
+        "s3:ListAllMyBuckets"
+			],
+			"Resource": [
+        "arn:aws:s3:::*"
+      ]
+    },
+    {
+      "Sid": "AllowListBucketS3Dev",
+			"Effect": "Allow",
+			"Action": [
+        "s3:ListBucket",
+        "s3:GetBucketLocation"        
+			],
+			"Resource": [
+        "arn:aws:s3:::dnft-kyc-stage",
+        "arn:aws:s3:::static3.nft2scan.com"
+      ]
+    },
+    {
+      "Sid": "AllowAccessS3Dev",
+			"Effect": "Allow",
+			"Action": [
+				"s3:PutObject",
+        "s3:GetObject"
+			],
+			"Resource": [
+        "arn:aws:s3:::dnft-kyc-stage/*",
+        "arn:aws:s3:::static3.nft2scan.com/*"
+      ]      
+    },
+    {
+      "Sid": "AllowListQueuesSQSDev",
+			"Effect": "Allow",
+			"Action": [
+        "sqs:ListQueues"
+			],
+			"Resource": "*"
+    },
+    {
+      "Sid": "AllowAccessSQSDev",
+			"Effect": "Allow",
+			"Action": [
+				"sqs:SendMessage",
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:GetQueueUrl"
+			],
+			"Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "aws:ResourceTag/env": ["stage", "dev"]
+        }
+      }
+    }
+	]
+}
