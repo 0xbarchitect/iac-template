@@ -83,8 +83,7 @@
         "s3:GetBucketLocation"        
 			],
 			"Resource": [
-        "arn:aws:s3:::dnft-kyc-stage",
-        "arn:aws:s3:::static3.nft2scan.com"
+        "arn:aws:s3:::static.public.domain"
       ]
     },
     {
@@ -95,8 +94,7 @@
         "s3:GetObject"
 			],
 			"Resource": [
-        "arn:aws:s3:::dnft-kyc-stage/*",
-        "arn:aws:s3:::static3.nft2scan.com/*"
+        "arn:aws:s3:::static.public.domain/*"
       ]      
     },
     {
