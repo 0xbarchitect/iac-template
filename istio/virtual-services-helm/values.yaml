@@ -21,3 +21,13 @@ virtualServices:
           - app2-service.prod.svc.cluster.local # internal domain name
     prefixes:
       - /
+  - virtualName: app3-virtual-svc
+    name: app3-service
+    port: 8003
+    namespaces: 
+      - name: prod
+        hosts: 
+          - app3.public.domain # public domain
+          - app3-service.prod.svc.cluster.local # internal domain name
+    prefixes:
+      - /

@@ -1,6 +1,4 @@
-# SSL certificates
-certificate_arns:
-  # - arn:aws:acm:us-east-1:230636669234:certificate/ce4a41f6-9427-4939-94a7-c8b51207112d
-  # - arn:aws:acm:us-east-1:230636669234:certificate/b9babd4a-1c11-4239-9ac2-94adbe4caa2a
-  # - arn:aws:acm:us-east-1:230636669234:certificate/65166185-4283-4a55-8486-7486c599b1f0
-  # - arn:aws:acm:us-east-1:471112821860:certificate/23d264f9-45f2-4575-901b-2c64ce14e7fe
+hosts:
+  - app1.public.domain
+  - app2.public.domain
+  - app3.public.domain

@@ -31,5 +31,3 @@ terraform.rc
 # Env var
 .env
 env.auto.tfvars
-env.auto.tfvars.protocol
-env.auto.tfvars.dpl

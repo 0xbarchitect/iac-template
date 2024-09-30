@@ -57,8 +57,6 @@ $ kubectl get nodes
 Go to `Dashboard` => `Manage Jenkins` => `Plugins` => `Available plugins`, search _Cobertura_, on `Cobertura Plugin` check and click `Download now and install after restart`. <br>
 After restart Jenkins, Cobertura Plugin will automatic collect coverage report on UT for us.
 
-See more on [Run unit test in Jenkins](https://devdocs.darenft.com/docs/runbook/deployment-workload#43-run-unit-test-in-jenkins)
-
 ## (Note!) Cron job docker prune to avoid device run out of space
 * Install crontab package:
 

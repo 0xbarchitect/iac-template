@@ -7,7 +7,7 @@ Detail instruction on how to provision EKS cluster on AWS.
 - [Kubectl v1.24+](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
 - [EKSctl v0.136+](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 - [IAM account with access credentials](https://console.aws.amazon.com)
-- [Terraform-cloud registered account](https://app.terraform.io/app/darenft/workspaces)
+- [Terraform-cloud registered account](https://app.terraform.io/session)
 
 ## Configure AWS provider
 - Create auto variables file from template
