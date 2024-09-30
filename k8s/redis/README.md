@@ -33,7 +33,7 @@ $ kubectl get secret --namespace istio-system redis -o jsonpath="{.data.redis-pa
 
 * Connect to Redis
 
-- Spin up debug pod
+> - Spin up debug pod
 
 ```sh
 $ kubectl run -it redis-cli --image=goodsmileduck/redis-cli --restart=Never --rm -- sh
@@ -41,9 +41,9 @@ $ redis-cli -h <redis-endpoint> -a <redis-password>
 ```
 
 
-- Try to PING, should receive PONG sucessfully.
+> - Try to PING, should receive PONG sucessfully.
 
-- Cleanup
+> - Cleanup
 
 ```sh
 $ kubectl delete redis-cli
