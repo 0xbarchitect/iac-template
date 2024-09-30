@@ -81,11 +81,8 @@ $ helm <install | upgrade> virtual-services ./virtual-services-helm -f ./virtual
 * Install / upgrade ALB Ingress
 
 ```bash
-$ helm <install | upgrade> alb-istio-ingress ./alb-istio-helm -f ./alb-istio-helm/<values-files>.yaml -n istio-system
+$ helm <install | upgrade> alb-istio-ingress ./alb-istio-helm -f ./alb-istio-helm/values.yaml -n istio-system
 ```
-
-**NOTE:** values-file is one of values-bi, values-dpl, values-protocol, which is corresponded to current team/line-products
-{: .note}
 
 * Verify ALB and Target-group is spinned up and running
 
