@@ -11,7 +11,7 @@ Main components:
 - Istio service mesh
 - Istio Ingress gateway
 - Application load balancer ALB
-- Cloudflare (or Cloudfront) CDN
+- Cloudflare CDN
 - Observability stack: ELK (Logs), Prometheus (Metrics), Jaeger (Tracing)
 - Databases service: RDS Aurora, S3, OpenSearch (ELK), Redis (ElasticCache)
 
@@ -38,7 +38,6 @@ Installation steps in order:
 - [ElastiCache Redis](./elasticache/README.md)
 - [S3 bucket](./s3/README.md)
 - [SQS queues](./sqs/README.md)
-- (Optional) [Cloudfront](./cloudfront/README.md)
 
 ## Cleanup
 - Delete all service charts in prod namespaces
@@ -49,7 +48,6 @@ $ helm delete <service-name> -n prod
 - Cleanup [Istio service mesh](./istio/README.md#cleanup)
 - Cleanup [K8S cluster](./k8s/README.md#cleanup)
 - Cleanup [EKS cluster](./eks/README.md#cleanup)
-- Cleanup (optional) [Cloudfront](./cloudfront/README.md#cleanup)
 - Cleanup [ElastiCache Redis](./elasticache/README.md#cleanup)
 - Cleanup [S3 bucket](./s3/README.md#cleanup)
 - Cleanup [SQS queues](./sqs/README.md#cleanup)
