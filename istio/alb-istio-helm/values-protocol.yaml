@@ -1,0 +1,19 @@
+hosts:
+  - sso-prod.nft2scan.com
+  - sso.nft2scan.com
+  - notification-prod.nft2scan.com
+  - notification.nft2scan.com
+  # - payment.dareplay.io
+  - protocol-api-prod.nft2scan.com
+  - protocol-api.nft2scan.com
+  - prod.nft2scan.com
+  - nft2scan.com
+  - marketplace-api-prod.moondeal.io
+  - marketplace-api.moondeal.io
+  - prod.moondeal.io
+  - moondeal.io
+  - sso.ndwoodart.ai
+  - api.ndwoodart.ai
+  - cms.ndwoodart.ai
+  - prod.ndwoodart.ai
+  - ndwoodart.ai

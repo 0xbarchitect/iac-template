@@ -1,0 +1,23 @@
+virtualServices:
+  - virtualName: app1-virtual-svc
+    name: app1-service
+    port: 8001
+    namespaces: 
+      - name: prod
+        hosts: 
+          - app1.public.domain # public domain
+          - app1-service.prod.svc.cluster.local # internal domain name
+    prefixes:
+      - /path1
+      - /path2
+      - /path3
+  - virtualName: app2-virtual-svc
+    name: app2-service
+    port: 8002
+    namespaces: 
+      - name: prod
+        hosts: 
+          - app2.public.domain # public domain
+          - app2-service.prod.svc.cluster.local # internal domain name
+    prefixes:
+      - /
