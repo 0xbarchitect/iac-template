@@ -23,3 +23,9 @@ $ gcloud compute addresses create gw-static-ip --region <gcp-region>
 ```sh
 $ kubectl patch svc istio-ingressgateway -n istio-system -p '{"spec": {"loadBalancerIP": "<STATIC_IP>"}}'
 ```
+
+## Verify
+- Verify that the static IP has been properly associated with the ingress-gateway
+```sh
+$ kubectl get svc -n istio-system
+```
