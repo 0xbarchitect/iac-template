@@ -1,6 +1,6 @@
 provider "google" {
   #project     = "nft2-440103"
-  region      = "us-central1"
+  #region      = "us-central1"
 }
 
 resource "google_container_cluster" "primary" {
