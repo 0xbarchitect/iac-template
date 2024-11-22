@@ -11,7 +11,7 @@ resource "google_container_cluster" "primary" {
     machine_type = "n1-standard-4"
   }
 
-  #initial_node_count = 4
+  initial_node_count = 4
 
   # Ensure deletion protection is set to false
   #deletion_protection = false
