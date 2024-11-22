@@ -14,6 +14,6 @@ resource "google_container_cluster" "primary" {
   initial_node_count = 4
 
   # Ensure deletion protection is set to false
-  #deletion_protection = false
+  deletion_protection = false
 }
      
