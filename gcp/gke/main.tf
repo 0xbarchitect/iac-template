@@ -1,5 +1,5 @@
 provider "google" {
-  #project     = "nft2-440103"
+  project     = "nft2-440103"
   #region      = "us-central1"
 }
 
