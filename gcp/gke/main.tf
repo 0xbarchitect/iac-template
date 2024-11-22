@@ -8,7 +8,7 @@ resource "google_container_cluster" "primary" {
   location = "us-central1"
 
   node_config {
-    #machine_type = "n1-standard-4"
+    machine_type = "n1-standard-4"
   #}
 
   #initial_node_count = 4
