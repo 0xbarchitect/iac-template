@@ -9,3 +9,8 @@ variable "GOOGLE_PROJECT" {
 variable "GOOGLE_REGION" {
   type = string
 }
+
+variable "cluster_name" {
+  type        = string
+  description = "The name of the GKE cluster"  
+}
