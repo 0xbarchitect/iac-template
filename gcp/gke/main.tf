@@ -4,7 +4,7 @@ provider "google" {
 }
 
 resource "google_container_cluster" "primary" {
-  name     = "gke-cluster-20241115"
+  name     = var.cluster_name
   location = "us-central1"
 
   node_config {
