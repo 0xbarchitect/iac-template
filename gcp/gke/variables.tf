@@ -14,3 +14,8 @@ variable "cluster_name" {
   type        = string
   description = "The name of the GKE cluster"  
 }
+
+variable "instance_type" {
+  type        = string
+  description = "The type of the GKE node instance"  
+}
