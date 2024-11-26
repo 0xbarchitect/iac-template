@@ -1,5 +1,5 @@
 ## GKS configuration
-The installation guide for GKS clusters.
+The installation guide for GKS clusters of validator nodes
 
 ## Run
 
