@@ -5,7 +5,7 @@ provider "google" {
 
 resource "google_container_cluster" "primary" {
   name     = var.cluster_name
-  location = "us-central1"
+  location = var.GOOGLE_REGION
 
   node_config {
     machine_type = "n1-standard-4"
