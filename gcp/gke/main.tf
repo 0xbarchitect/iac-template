@@ -8,7 +8,7 @@ resource "google_container_cluster" "primary" {
   location = var.GOOGLE_REGION
 
   node_config {
-    machine_type = "n1-standard-4"
+    machine_type = var.instance_type
   }
 
   initial_node_count = 4
