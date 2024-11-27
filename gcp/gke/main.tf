@@ -1,7 +1,7 @@
 provider "google" {
   project     = var.GOOGLE_PROJECT
-#   region      = var.GOOGLE_REGION
-# }
+  region      = var.GOOGLE_REGION
+}
 
 # resource "google_container_cluster" "primary" {
 #   name     = var.cluster_name
