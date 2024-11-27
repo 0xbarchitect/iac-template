@@ -7,9 +7,9 @@ resource "google_container_cluster" "primary" {
   name     = "gke-cluster-20241115"
   location = "us-central1"
 
-#   node_config {
-#     machine_type = "n1-standard-4"
-#   }
+  node_config {
+    machine_type = "n1-standard-4"
+  }
 
 #   initial_node_count = 4
 
