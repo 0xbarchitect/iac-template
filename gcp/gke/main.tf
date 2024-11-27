@@ -13,7 +13,7 @@ resource "google_container_cluster" "primary" {
 
   initial_node_count = var.instance_number
 
-#   # Ensure deletion protection is set to false
-#   deletion_protection = false
-# }
+  # Ensure deletion protection is set to false
+  deletion_protection = false
+}
      
