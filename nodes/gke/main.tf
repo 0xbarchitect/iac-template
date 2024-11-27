@@ -1,7 +1,7 @@
-# provider "google" {
-#   project     = "nft2-440103"
-#   region      = "us-central1"
-# }
+provider "google" {
+  project     = "nft2-440103"
+  region      = "us-central1"
+}
 
 # resource "google_container_cluster" "primary" {
 #   name     = "gke-cluster-20241115"
