@@ -1,5 +1,5 @@
 provider "google" {
-  project     = "nft2-440103"
+  project     = var.GOOGLE_PROJECT
   region      = "us-central1"
 }
 
