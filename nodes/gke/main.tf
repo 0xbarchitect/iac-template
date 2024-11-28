@@ -11,7 +11,7 @@ resource "google_container_cluster" "primary" {
     machine_type = var.instance_type
   }
 
-  initial_node_count = 4
+  initial_node_count = var.instance_number
 
   # Ensure deletion protection is set to false
   deletion_protection = false
