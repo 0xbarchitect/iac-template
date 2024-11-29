@@ -8,7 +8,14 @@ The installation guide for GKS clusters of validator nodes
 $ cp env.auto.tfvars.example env.auto.tfvars`
 ```
 
-- Create a Terraform with the name prefixed by `gks-`, i.e. `gks-cluster-YMD`
+- Create a Terraform with the name prefixed by `nodes-`, i.e. `nodes-testnet`
+
+- Add `GOOGLE_CREDENTIALS` variable to Terraform workspaces, with the value retrieved from the command.
+```sh
+$ cat ./terraform-key.json | tr -s '\n' ' '
+```
+
+*Note: the variable MUST be marked as sensitive*
 
 ## Run
 

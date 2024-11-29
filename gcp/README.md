@@ -34,10 +34,12 @@ $ gcloud iam service-accounts keys create ./terraform-key.json --iam-account ter
 
 - Create a Terraform cloud workspace, e.g. `gks-20241125`
 
-- Add an workspace variable named `GOOGLE_CREDENTIALS` to the workspace, with the value achieved by the command
+- Add an workspace variable named `GOOGLE_CREDENTIALS` to the workspace, with the value retrieved from the command.
 ```sh
 $ cat ./terraform-key.json | tr -s '\n' ' '
 ```
+
+*Note: the variable MUST be marked as sensitive*
 
 For more information, please refer to [instruction on Terraform docs](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/getting_started)
 
