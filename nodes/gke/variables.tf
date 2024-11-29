@@ -20,7 +20,7 @@ variable "instance_type" {
   description = "The type of the GKE node instance"  
 }
 
-# variable "instance_number" {
-#   type        = number
-#   description = "The number of the GKE node instance"  
-# }
+variable "instance_number" {
+  type        = number
+  description = "The number of the GKE node instance"  
+}
