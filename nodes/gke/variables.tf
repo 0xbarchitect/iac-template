@@ -15,10 +15,10 @@ variable "cluster_name" {
   description = "The name of the GKE cluster"  
 }
 
-# variable "instance_type" {
-#   type        = string
-#   description = "The type of the GKE node instance"  
-# }
+variable "instance_type" {
+  type        = string
+  description = "The type of the GKE node instance"  
+}
 
 # variable "instance_number" {
 #   type        = number
