@@ -10,6 +10,10 @@ variable "GOOGLE_REGION" {
   type = string
 }
 
+variable "GOOGLE_ZONE" {
+  type = string
+}
+
 variable "cluster_name" {
   type        = string
   description = "The name of the GKE cluster"  
