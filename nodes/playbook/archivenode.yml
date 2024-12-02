@@ -1,0 +1,98 @@
+---
+# install_avalanchego.yml
+- name: Install GCC, Golang and AvalancheGo
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install required packages
+      apt:
+        name:
+          - gcc
+          - g++
+          - make
+          - git
+        state: present
+
+    - name: Download Go installer
+      get_url:
+        url: https://go.dev/dl/go1.20.5.linux-amd64.tar.gz
+        dest: /tmp/go1.20.5.linux-amd64.tar.gz
+
+    - name: Remove existing Go installation
+      file:
+        path: /usr/local/go
+        state: absent
+
+    - name: Extract Go archive
+      unarchive:
+        src: /tmp/go1.20.5.linux-amd64.tar.gz
+        dest: /usr/local
+        remote_src: yes
+
+    - name: Set Go environment variables
+      blockinfile:
+        path: /etc/profile.d/go.sh
+        create: yes
+        block: |
+          export GOPATH=$HOME/go
+          export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
+    - name: Source Go environment
+      shell: source /etc/profile.d/go.sh
+      args:
+        executable: /bin/bash
+
+    - name: Clone AvalancheGo repository
+      git:
+        repo: https://github.com/ava-labs/avalanchego.git
+        dest: /tmp/avalanchego
+        version: master
+
+    - name: Build AvalancheGo
+      shell: ./scripts/build.sh
+      args:
+        chdir: /tmp/avalanchego
+
+    - name: Create AvalancheGo service directory
+      file:
+        path: /var/lib/avalanchego
+        state: directory
+        mode: '0755'
+
+    - name: Copy AvalancheGo binary
+      copy:
+        src: /tmp/avalanchego/build/avalanchego
+        dest: /usr/local/bin/
+        mode: '0755'
+        remote_src: yes
+
+    - name: Create AvalancheGo systemd service
+      copy:
+        dest: /etc/systemd/system/avalanchego.service
+        content: |
+          [Unit]
+          Description=AvalancheGo node
+          After=network.target
+
+          [Service]
+          User=root
+          ExecStart=/usr/local/bin/avalanchego
+          WorkingDirectory=/var/lib/avalanchego
+          Restart=always
+          RestartSec=3
+          LimitNOFILE=4096
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Start and enable AvalancheGo service
+      systemd:
+        name: avalanchego
+        state: started
+        enabled: yes
+        daemon_reload: yes
