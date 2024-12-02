@@ -43,6 +43,6 @@ resource "google_compute_firewall" "default" {
     ports    = ["22", "9651"]
   }
 
-#   source_ranges = ["0.0.0.0/0"]
-#   target_tags   = ["validator-nodes-firewall"]
-# }
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["validator-nodes-firewall"]
+}
