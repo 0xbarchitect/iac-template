@@ -9,11 +9,11 @@ resource "google_compute_address" "static" {
   region = var.GOOGLE_REGION
 }
 
-# resource "google_compute_instance" "default" {
-#   count        = var.instance_number
-#   name         = "${var.cluster_name}-${count.index}"
-#   machine_type = var.instance_type
-#   zone         = var.GOOGLE_ZONE
+resource "google_compute_instance" "default" {
+  count        = var.instance_number
+  name         = "${var.cluster_name}-${count.index}"
+  machine_type = var.instance_type
+  zone         = var.GOOGLE_ZONE
 
 #   tags = ["validator-nodes-firewall"]
 
