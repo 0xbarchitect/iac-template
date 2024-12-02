@@ -25,14 +25,14 @@ resource "google_compute_instance" "default" {
     }
   }
 
-#   network_interface {
-#     network = "default"
+  network_interface {
+    network = "default"
 
-#     access_config {
-#       nat_ip = google_compute_address.static[count.index].address
-#     }
-#   }
-# }
+    access_config {
+      nat_ip = google_compute_address.static[count.index].address
+    }
+  }
+}
 
 # resource "google_compute_firewall" "default" {
 #   name    = "validator-nodes-firewall"
