@@ -3,11 +3,11 @@ provider "google" {
   region  = var.GOOGLE_REGION
 }
 
-# resource "google_compute_address" "static" {
-#   count  = var.instance_number
-#   name   = "${var.cluster_name}-static-ip-${count.index}"
-#   region = var.GOOGLE_REGION
-# }
+resource "google_compute_address" "static" {
+  count  = var.instance_number
+  name   = "${var.cluster_name}-static-ip-${count.index}"
+  region = var.GOOGLE_REGION
+}
 
 # resource "google_compute_instance" "default" {
 #   count        = var.instance_number
