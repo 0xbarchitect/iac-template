@@ -1,2 +1,2 @@
-hosts.*
-!hosts.ini.example
+hosts
+!hosts.example
