@@ -34,9 +34,9 @@ resource "google_compute_instance" "default" {
   }
 }
 
-# resource "google_compute_firewall" "default" {
-#   name    = "validator-nodes-firewall"
-#   network = "default"
+resource "google_compute_firewall" "default" {
+  name    = "validator-nodes-firewall"
+  network = "default"
 
 #   allow {
 #     protocol = "tcp"
