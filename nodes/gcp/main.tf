@@ -38,10 +38,10 @@ resource "google_compute_firewall" "default" {
   name    = "validator-nodes-firewall"
   network = "default"
 
-#   allow {
-#     protocol = "tcp"
-#     ports    = ["22", "9651"]
-#   }
+  allow {
+    protocol = "tcp"
+    ports    = ["22", "9651"]
+  }
 
 #   source_ranges = ["0.0.0.0/0"]
 #   target_tags   = ["validator-nodes-firewall"]
