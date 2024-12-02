@@ -15,7 +15,7 @@ resource "google_compute_instance" "default" {
   machine_type = var.instance_type
   zone         = var.GOOGLE_ZONE
 
-#   tags = ["validator-nodes-firewall"]
+  tags = ["validator-nodes-firewall"]
 
 #   boot_disk {
 #     initialize_params {
