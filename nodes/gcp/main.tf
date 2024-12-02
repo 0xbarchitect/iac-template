@@ -17,13 +17,13 @@ resource "google_compute_instance" "default" {
 
   tags = ["validator-nodes-firewall"]
 
-#   boot_disk {
-#     initialize_params {
-#       image = "ubuntu-os-cloud/ubuntu-2004-lts"
-#       size  = 2048
-#       type  = "pd-ssd"
-#     }
-#   }
+  boot_disk {
+    initialize_params {
+      image = "ubuntu-os-cloud/ubuntu-2004-lts"
+      size  = 2048
+      type  = "pd-ssd"
+    }
+  }
 
 #   network_interface {
 #     network = "default"
