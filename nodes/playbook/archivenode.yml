@@ -1,5 +1,5 @@
 ---
-# install_avalanchego.yml
+# archivenode.yml
 - name: Install GCC, Golang and AvalancheGo
   hosts: all
   become: yes
