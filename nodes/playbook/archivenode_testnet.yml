@@ -100,7 +100,7 @@
 
           [Service]
           User=root
-          ExecStart=/usr/local/bin/avalanchego
+          ExecStart=/usr/local/bin/avalanchego --network-id=fuji
           WorkingDirectory=/var/lib/avalanchego
           Restart=always
           RestartSec=3

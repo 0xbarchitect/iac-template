@@ -16,7 +16,7 @@ $ cp hosts.example hosts
 $ ansible-playbook -i hosts archivenode.yml
 ```
 
-## Investigate
+## Troubleshoot
 - Some commands for debuging and investigation
 ```sh
 $ ansible all -m --list-hosts -i hosts
