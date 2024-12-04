@@ -5,6 +5,7 @@
   become: yes
   tasks:
     - import_tasks: common_tasks.yml
+      tags: [testnet, mainnet]
 
     - name: Create AvalancheGo systemd service for testnet
       copy:
@@ -56,3 +57,4 @@
         state: started
         enabled: yes
         daemon_reload: yes
+      tags: [testnet, mainnet]
