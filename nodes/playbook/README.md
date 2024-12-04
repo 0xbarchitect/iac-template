@@ -14,20 +14,24 @@ $ cp hosts.example hosts
 
 ## Run
 
-- It is recommended to dryrun a playbook before applying to the live hosts
+- It is recommended to dryrun a playbook before applying to the live hosts, i.e.
 ```sh
-$ ansible-playbook archivenode.yml -i <inventory_file> --tags "testnet" --check
+$ ansible-playbook avalanchego.yml -i <hosts_file> --tags "testnet" --check
 ```
 
 *Note: replace tags with `testnet` or `mainnet` respectively*
 
-- Apply playbook to hosts
+- Install AvalancheGo by applying the playbook to hosts
 ```sh
-$ ansible-playbook archivenode.yml -i <inventory_file> --tags "testnet"
+$ ansible-playbook avalanchego.yml -i <hosts_file> --tags "testnet"
 ```
 
 *Note: replace tags with `testnet` or `mainnet` respectively*
 
+- Install Avalanche CLI
+```sh
+$ ansible-playbook avalanchecli.yml -i <hosts_file>
+```
 
 ## Troubleshoot
 
