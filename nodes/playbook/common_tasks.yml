@@ -1,0 +1,89 @@
+---
+# install common services: gcc, golang, avalanchego
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install required packages
+  apt:
+    name:
+      - gcc
+      - g++
+      - make
+      - git
+      - net-tools
+      - htop
+    state: present
+
+- name: Download Go installer
+  get_url:
+    url: https://go.dev/dl/go1.22.9.linux-amd64.tar.gz
+    dest: /tmp/go1.22.9.linux-amd64.tar.gz
+
+- name: Remove existing Go installation
+  file:
+    path: /usr/local/go
+    state: absent
+
+- name: Extract Go archive
+  unarchive:
+    src: /tmp/go1.22.9.linux-amd64.tar.gz
+    dest: /usr/local
+    remote_src: yes
+
+- name: Set Go environment variables
+  blockinfile:
+    path: /etc/profile.d/go.sh
+    create: yes
+    mode: '0644'
+    block: |
+      export PATH=$PATH:/usr/local/go/bin
+      export GOPATH=$HOME/go
+      export PATH=$PATH:$GOPATH/bin
+
+- name: Source Go environment
+  shell: source /etc/profile.d/go.sh
+  args:
+    executable: /bin/bash
+
+- name: Create GOPATH directory
+  file:
+    path: "{{ ansible_env.HOME }}/go"
+    state: directory
+    mode: '0755'
+
+- name: Verify Go installation
+  shell: /usr/local/go/bin/go version
+  register: go_version_output
+
+- name: Display Go version
+  debug:
+    var: go_version_output.stdout
+
+- name: Clone AvalancheGo repository
+  git:
+    repo: https://github.com/ava-labs/avalanchego.git
+    dest: /tmp/avalanchego
+    version: master
+
+- name: Build AvalancheGo
+  shell: |
+    cd /tmp/avalanchego
+    PATH=$PATH:/usr/local/go/bin ./scripts/build.sh
+  environment:
+    PATH: "{{ ansible_env.PATH }}:/usr/local/go/bin"
+    GOPATH: "{{ ansible_env.HOME }}/go"
+
+- name: Create AvalancheGo service directory
+  file:
+    path: /var/lib/avalanchego
+    state: directory
+    mode: '0755'
+
+- name: Copy AvalancheGo binary
+  copy:
+    src: /tmp/avalanchego/build/avalanchego
+    dest: /usr/local/bin/
+    mode: '0755'
+    remote_src: yes

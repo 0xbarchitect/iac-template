@@ -1,0 +1,58 @@
+---
+# The playbook for Validator nodes
+- name: Install GCC, Golang and AvalancheGo
+  hosts: all
+  become: yes
+  tasks:
+    - import_tasks: common_tasks.yml
+
+    - name: Create AvalancheGo systemd service for testnet
+      copy:
+        dest: /etc/systemd/system/avalanchego.service
+        content: |
+          [Unit]
+          Description=AvalancheGo node
+          After=network.target
+
+          [Service]
+          User=root
+          ExecStart=/usr/local/bin/avalanchego --network-id=fuji
+          WorkingDirectory=/var/lib/avalanchego
+          Restart=always
+          RestartSec=3
+          LimitNOFILE=65535
+          LimitNPROC=65535
+          LimitMEMLOCK=infinity
+
+          [Install]
+          WantedBy=multi-user.target
+      tags: [testnet]
+
+    - name: Create AvalancheGo systemd service for mainnet
+      copy:
+        dest: /etc/systemd/system/avalanchego.service
+        content: |
+          [Unit]
+          Description=AvalancheGo node
+          After=network.target
+
+          [Service]
+          User=root
+          ExecStart=/usr/local/bin/avalanchego
+          WorkingDirectory=/var/lib/avalanchego
+          Restart=always
+          RestartSec=3
+          LimitNOFILE=65535
+          LimitNPROC=65535
+          LimitMEMLOCK=infinity
+
+          [Install]
+          WantedBy=multi-user.target
+      tags: [mainnet]
+
+    - name: Start and enable AvalancheGo service
+      systemd:
+        name: avalanchego
+        state: started
+        enabled: yes
+        daemon_reload: yes
