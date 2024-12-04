@@ -23,3 +23,10 @@ $ ansible all -m --list-hosts -i hosts
 $ ansible all -m ping -i hosts
 $ ansible all -m setup -i hosts
 ```
+
+## Cleanup
+- Delete blockchain DB
+```sh
+$ sudo su root
+$ cd ~/.avalanchego; rm -rf ./*
+```
