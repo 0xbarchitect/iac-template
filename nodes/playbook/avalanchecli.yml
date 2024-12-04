@@ -1,0 +1,84 @@
+---
+- name: Install Avalanche CLI
+  hosts: all
+  become: true
+  vars:
+    # Latest version as of knowledge cutoff
+    avalanche_cli_version: "2.0.0"
+    install_dir: "/usr/local/bin"
+    github_repo: "https://github.com/ava-labs/avalanche-cli"
+    temp_dir: "/tmp/avalanche-cli"
+
+    # OS-specific variables
+    linux_binary_name: "avalanche-cli_{{ avalanche_cli_version }}_linux_amd64.tar.gz"
+
+  pre_tasks:
+    - name: Check if Avalanche CLI is already installed
+      command: which avalanche
+      register: avalanche_check
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Check existing version
+      command: avalanche --version
+      register: existing_version
+      when: avalanche_check.rc == 0
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Display existing installation
+      debug:
+        msg: "Existing Avalanche CLI version: {{ existing_version.stdout }}"
+      when: avalanche_check.rc == 0
+
+  tasks:
+    - name: Create temporary directory
+      file:
+        path: "{{ temp_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Download Avalanche CLI for Linux
+      get_url:
+        url: "{{ github_repo }}/releases/download/v{{ avalanche_cli_version }}/{{ linux_binary_name }}"
+        dest: "{{ temp_dir }}/{{ linux_binary_name }}"
+        mode: '0644'
+
+    - name: Extract Avalanche CLI
+      unarchive:
+        src: "{{ temp_dir }}/{{ linux_binary_name }}"
+        dest: "{{ temp_dir }}"
+        remote_src: yes
+
+    - name: Move binary to install directory
+      copy:
+        src: "{{ temp_dir }}/avalanche"
+        dest: "{{ install_dir }}/avalanche"
+        mode: '0755'
+        remote_src: yes
+
+    - name: Clean up temporary files
+      file:
+        path: "{{ temp_dir }}"
+        state: absent
+
+  post_tasks:
+    - name: Verify Avalanche CLI installation
+      command: avalanche --version
+      register: version_check
+      changed_when: false
+
+    - name: Display Avalanche CLI version
+      debug:
+        msg: "Avalanche CLI version: {{ version_check.stdout }}"
+
+    - name: Verify Avalanche CLI functionality
+      command: avalanche network status
+      register: status_check
+      changed_when: false
+      ignore_errors: yes
+
+    - name: Display installation status
+      debug:
+        msg: "Avalanche CLI installation successful and working properly"
+      when: status_check.rc == 0
