@@ -38,14 +38,25 @@
         state: directory
         mode: '0755'
 
-    - name: Download Avalanche CLI for Linux
-      get_url:
-        url: "https://raw.githubusercontent.com/ava-labs/avalanche-cli/main/scripts/install.sh"
-        dest: "{{ temp_dir }}/install.sh"
-        mode: '0755'
+    - name: Clone AvalancheCLI repository
+      git:
+        repo: https://github.com/ava-labs/avalanche-cli.git
+        dest: "{{ temp_dir }}"
+        version: main
 
-    - name: Run installation script
-      shell: "{{ temp_dir }}/install.sh -b {{ install_dir }}"
+    - name: Compile using script
+      shell: |
+        cd {{ temp_dir }}
+        PATH=$PATH:/usr/local/go/bin ./scripts/build.sh
+      environment:
+        PATH: "{{ ansible_env.PATH }}:/usr/local/go/bin"
+        GOPATH: "{{ ansible_env.HOME }}/go"
+
+    - name: Copy binary to installation directory
+      copy:
+        src: "{{ temp_dir }}/bin/avalanche"
+        dest: "{{ install_dir }}"
+        mode: '0755'
 
     - name: Clean up temporary files
       file:
