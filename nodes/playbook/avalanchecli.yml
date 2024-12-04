@@ -40,22 +40,12 @@
 
     - name: Download Avalanche CLI for Linux
       get_url:
-        url: "{{ github_repo }}/releases/download/v{{ avalanche_cli_version }}/{{ linux_binary_name }}"
-        dest: "{{ temp_dir }}/{{ linux_binary_name }}"
-        mode: '0644'
-
-    - name: Extract Avalanche CLI
-      unarchive:
-        src: "{{ temp_dir }}/{{ linux_binary_name }}"
-        dest: "{{ temp_dir }}"
-        remote_src: yes
-
-    - name: Move binary to install directory
-      copy:
-        src: "{{ temp_dir }}/avalanche"
-        dest: "{{ install_dir }}/avalanche"
+        url: "https://raw.githubusercontent.com/ava-labs/avalanche-cli/main/scripts/install.sh"
+        dest: "{{ temp_dir }}/install.sh"
         mode: '0755'
-        remote_src: yes
+
+    - name: Run installation script
+      shell: "{{ temp_dir }}/install.sh -b {{ install_dir }}"
 
     - name: Clean up temporary files
       file:
