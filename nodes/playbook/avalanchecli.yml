@@ -19,17 +19,17 @@
       ignore_errors: yes
       changed_when: false
 
-    # - name: Check existing version
-    #   command: avalanche --version
-    #   register: existing_version
-    #   when: avalanche_check.rc == 0
-    #   ignore_errors: yes
-    #   changed_when: false
-
-    - name: Display existing installation
-      debug:
-        msg: "Existing Avalanche CLI version: {{ existing_version.stdout }}"
+    - name: Check existing version
+      command: avalanche --version
+      register: existing_version
       when: avalanche_check.rc == 0
+      ignore_errors: yes
+      changed_when: false
+
+    # - name: Display existing installation
+    #   debug:
+    #     msg: "Existing Avalanche CLI version: {{ existing_version.stdout }}"
+    #   when: avalanche_check.rc == 0
 
   tasks:
     - name: Create temporary directory
