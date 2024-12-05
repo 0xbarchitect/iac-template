@@ -13,18 +13,18 @@
     linux_binary_name: "avalanche-cli_{{ avalanche_cli_version }}_linux_amd64.tar.gz"
 
   pre_tasks:
-    # - name: Check if Avalanche CLI is already installed
-    #   command: which avalanche
-    #   register: avalanche_check
-    #   ignore_errors: yes
-    #   changed_when: false
-
-    - name: Check existing version
-      command: avalanche --version
-      register: existing_version
-      when: avalanche_check.rc == 0
+    - name: Check if Avalanche CLI is already installed
+      command: which avalanche
+      register: avalanche_check
       ignore_errors: yes
       changed_when: false
+
+    # - name: Check existing version
+    #   command: avalanche --version
+    #   register: existing_version
+    #   when: avalanche_check.rc == 0
+    #   ignore_errors: yes
+    #   changed_when: false
 
     - name: Display existing installation
       debug:
