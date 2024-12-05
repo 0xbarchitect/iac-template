@@ -1,0 +1,28 @@
+---
+# playbook-letsencrypt.yml
+- name: Install Let's Encrypt (Certbot) on Ubuntu 20.04
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install software-properties-common
+      apt:
+        name: software-properties-common
+        state: present
+
+    - name: Add Certbot repository
+      apt_repository:
+        repo: ppa:certbot/certbot
+        state: present
+
+    - name: Install Certbot
+      apt:
+        name: 
+          - certbot
+          - python3-certbot-nginx  # If using nginx
+        state: present
