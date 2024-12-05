@@ -26,17 +26,17 @@
       ignore_errors: yes
       changed_when: false
 
-    # - name: Display existing installation
-    #   debug:
-    #     msg: "Existing Avalanche CLI version: {{ existing_version.stdout }}"
-    #   when: avalanche_check.rc == 0
+    - name: Display existing installation
+      debug:
+        msg: "Existing Avalanche CLI version: {{ existing_version.stdout }}"
+      when: avalanche_check.rc == 0
 
   tasks:
-    - name: Create temporary directory
-      file:
-        path: "{{ temp_dir }}"
-        state: directory
-        mode: '0755'
+    # - name: Create temporary directory
+    #   file:
+    #     path: "{{ temp_dir }}"
+    #     state: directory
+    #     mode: '0755'
 
     - name: Clone AvalancheCLI repository
       git:
