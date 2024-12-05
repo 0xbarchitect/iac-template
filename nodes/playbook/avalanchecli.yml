@@ -1,75 +1,75 @@
-# ---
-# - name: Install Avalanche CLI
-#   hosts: all
-#   become: true
-#   vars:
-#     # Latest version as of knowledge cutoff
-#     avalanche_cli_version: "2.0.0"
-#     install_dir: "/usr/local/bin"
-#     github_repo: "https://github.com/ava-labs/avalanche-cli"
-#     temp_dir: "/tmp/avalanche-cli"
+---
+- name: Install Avalanche CLI
+  hosts: all
+  become: true
+  vars:
+    # Latest version as of knowledge cutoff
+    avalanche_cli_version: "2.0.0"
+    install_dir: "/usr/local/bin"
+    github_repo: "https://github.com/ava-labs/avalanche-cli"
+    temp_dir: "/tmp/avalanche-cli"
 
-#     # OS-specific variables
-#     linux_binary_name: "avalanche-cli_{{ avalanche_cli_version }}_linux_amd64.tar.gz"
+    # OS-specific variables
+    linux_binary_name: "avalanche-cli_{{ avalanche_cli_version }}_linux_amd64.tar.gz"
 
-#   pre_tasks:
-#     - name: Check if Avalanche CLI is already installed
-#       command: which avalanche
-#       register: avalanche_check
-#       ignore_errors: yes
-#       changed_when: false
+  pre_tasks:
+    # - name: Check if Avalanche CLI is already installed
+    #   command: which avalanche
+    #   register: avalanche_check
+    #   ignore_errors: yes
+    #   changed_when: false
 
-#     - name: Check existing version
-#       command: avalanche --version
-#       register: existing_version
-#       when: avalanche_check.rc == 0
-#       ignore_errors: yes
-#       changed_when: false
+    - name: Check existing version
+      command: avalanche --version
+      register: existing_version
+      when: avalanche_check.rc == 0
+      ignore_errors: yes
+      changed_when: false
 
-#     - name: Display existing installation
-#       debug:
-#         msg: "Existing Avalanche CLI version: {{ existing_version.stdout }}"
-#       when: avalanche_check.rc == 0
+    - name: Display existing installation
+      debug:
+        msg: "Existing Avalanche CLI version: {{ existing_version.stdout }}"
+      when: avalanche_check.rc == 0
 
-#   tasks:
-#     - name: Create temporary directory
-#       file:
-#         path: "{{ temp_dir }}"
-#         state: directory
-#         mode: '0755'
+  tasks:
+    - name: Create temporary directory
+      file:
+        path: "{{ temp_dir }}"
+        state: directory
+        mode: '0755'
 
-#     - name: Clone AvalancheCLI repository
-#       git:
-#         repo: https://github.com/ava-labs/avalanche-cli.git
-#         dest: "{{ temp_dir }}"
-#         version: main
+    - name: Clone AvalancheCLI repository
+      git:
+        repo: https://github.com/ava-labs/avalanche-cli.git
+        dest: "{{ temp_dir }}"
+        version: main
 
-#     - name: Compile using script
-#       shell: |
-#         cd {{ temp_dir }}
-#         PATH=$PATH:/usr/local/go/bin ./scripts/build.sh
-#       environment:
-#         PATH: "{{ ansible_env.PATH }}:/usr/local/go/bin"
-#         GOPATH: "{{ ansible_env.HOME }}/go"
+    - name: Compile using script
+      shell: |
+        cd {{ temp_dir }}
+        PATH=$PATH:/usr/local/go/bin ./scripts/build.sh
+      environment:
+        PATH: "{{ ansible_env.PATH }}:/usr/local/go/bin"
+        GOPATH: "{{ ansible_env.HOME }}/go"
 
-#     - name: Copy binary to installation directory
-#       copy:
-#         src: "{{ temp_dir }}/bin/avalanche"
-#         dest: "{{ install_dir }}"
-#         mode: '0755'
-#         remote_src: yes
+    - name: Copy binary to installation directory
+      copy:
+        src: "{{ temp_dir }}/bin/avalanche"
+        dest: "{{ install_dir }}"
+        mode: '0755'
+        remote_src: yes
 
-#     - name: Clean up temporary files
-#       file:
-#         path: "{{ temp_dir }}"
-#         state: absent
+    - name: Clean up temporary files
+      file:
+        path: "{{ temp_dir }}"
+        state: absent
 
-#   post_tasks:
-#     - name: Verify Avalanche CLI installation
-#       command: avalanche --version
-#       register: version_check
-#       changed_when: false
+  post_tasks:
+    - name: Verify Avalanche CLI installation
+      command: avalanche --version
+      register: version_check
+      changed_when: false
 
-#     - name: Display Avalanche CLI version
-#       debug:
-#         msg: "Avalanche CLI version: {{ version_check.stdout }}"
+    - name: Display Avalanche CLI version
+      debug:
+        msg: "Avalanche CLI version: {{ version_check.stdout }}"
