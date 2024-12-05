@@ -1,0 +1,79 @@
+---
+# playbook-anaconda.yml
+- name: Install Anaconda Python virual environment
+  hosts: all
+  become: yes
+
+  vars:
+    anaconda_version: "2024.02-1"  # Update this to the latest version
+    anaconda_installer: "Anaconda3-{{ anaconda_version }}-Linux-x86_64.sh"
+    download_url: "https://repo.anaconda.com/archive/{{ anaconda_installer }}"
+    install_path: "/opt/anaconda3"
+    user: "admin1"
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install required packages
+      apt:
+        name:
+          - curl
+          - bzip2
+          - libgl1-mesa-glx
+          - libegl1-mesa
+          - libxrandr2
+          - libxss1
+          - libxcursor1
+          - libxcomposite1
+          - libasound2
+          - libxi6
+          - libxtst6
+        state: present
+
+    - name: Check if Anaconda is already installed
+      stat:
+        path: "{{ install_path }}"
+      register: anaconda_install
+
+    - name: Download Anaconda installer
+      get_url:
+        url: "{{ download_url }}"
+        dest: "/tmp/{{ anaconda_installer }}"
+        mode: '0755'
+      when: not anaconda_install.stat.exists
+
+    - name: Install Anaconda
+      command: "bash /tmp/{{ anaconda_installer }} -b -p {{ install_path }}"
+      args:
+        creates: "{{ install_path }}"
+      when: not anaconda_install.stat.exists
+
+    - name: Add Anaconda to PATH in bashrc
+      blockinfile:
+        path: "/home/{{ user }}/.bashrc"
+        block: |
+          # Anaconda3 path
+          export PATH="{{ install_path }}/bin:$PATH"
+        marker: "# {mark} ANSIBLE MANAGED BLOCK - ANACONDA"
+        create: yes
+
+    - name: Initialize conda for bash shell
+      command: "{{ install_path }}/bin/conda init bash"
+      become_user: "{{ user }}"
+      args:
+        creates: "/home/{{ user }}/.conda"
+
+    - name: Set correct ownership
+      file:
+        path: "{{ install_path }}"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        recurse: yes
+
+    - name: Clean up installer
+      file:
+        path: "/tmp/{{ anaconda_installer }}"
+        state: absent
