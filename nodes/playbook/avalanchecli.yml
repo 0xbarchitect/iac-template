@@ -65,10 +65,10 @@
         state: absent
 
   post_tasks:
-    # - name: Verify Avalanche CLI installation
-    #   command: avalanche --version
-    #   register: version_check
-    #   changed_when: false
+    - name: Verify Avalanche CLI installation
+      command: avalanche --version
+      register: version_check
+      changed_when: false
 
     - name: Display Avalanche CLI version
       debug:
