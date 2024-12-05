@@ -44,20 +44,20 @@
         dest: "{{ temp_dir }}"
         version: main
 
-    # - name: Compile using script
-    #   shell: |
-    #     cd {{ temp_dir }}
-    #     PATH=$PATH:/usr/local/go/bin ./scripts/build.sh
-    #   environment:
-    #     PATH: "{{ ansible_env.PATH }}:/usr/local/go/bin"
-    #     GOPATH: "{{ ansible_env.HOME }}/go"
+    - name: Compile using script
+      shell: |
+        cd {{ temp_dir }}
+        PATH=$PATH:/usr/local/go/bin ./scripts/build.sh
+      environment:
+        PATH: "{{ ansible_env.PATH }}:/usr/local/go/bin"
+        GOPATH: "{{ ansible_env.HOME }}/go"
 
-    - name: Copy binary to installation directory
-      copy:
-        src: "{{ temp_dir }}/bin/avalanche"
-        dest: "{{ install_dir }}"
-        mode: '0755'
-        remote_src: yes
+    # - name: Copy binary to installation directory
+    #   copy:
+    #     src: "{{ temp_dir }}/bin/avalanche"
+    #     dest: "{{ install_dir }}"
+    #     mode: '0755'
+    #     remote_src: yes
 
     - name: Clean up temporary files
       file:
