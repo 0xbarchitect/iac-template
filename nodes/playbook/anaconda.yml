@@ -12,10 +12,10 @@
     user: "admin1"
 
   tasks:
-    - name: Update apt cache
-      apt:
-        update_cache: yes
-        cache_valid_time: 3600
+    # - name: Update apt cache
+    #   apt:
+    #     update_cache: yes
+    #     cache_valid_time: 3600
 
     - name: Install required packages
       apt:
