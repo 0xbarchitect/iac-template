@@ -51,14 +51,14 @@
     #     creates: "{{ install_path }}"
     #   when: not anaconda_install.stat.exists
 
-    - name: Add Anaconda to PATH in bashrc
-      blockinfile:
-        path: "/home/{{ user }}/.bashrc"
-        block: |
-          # Anaconda3 path
-          export PATH="{{ install_path }}/bin:$PATH"
-        marker: "# {mark} ANSIBLE MANAGED BLOCK - ANACONDA"
-        create: yes
+    # - name: Add Anaconda to PATH in bashrc
+    #   blockinfile:
+    #     path: "/home/{{ user }}/.bashrc"
+    #     block: |
+    #       # Anaconda3 path
+    #       export PATH="{{ install_path }}/bin:$PATH"
+    #     marker: "# {mark} ANSIBLE MANAGED BLOCK - ANACONDA"
+    #     create: yes
 
     - name: Initialize conda for bash shell
       command: "{{ install_path }}/bin/conda init bash"
