@@ -33,17 +33,17 @@
           - libxtst6
         state: present
 
-    # - name: Check if Anaconda is already installed
-    #   stat:
-    #     path: "{{ install_path }}"
-    #   register: anaconda_install
+    - name: Check if Anaconda is already installed
+      stat:
+        path: "{{ install_path }}"
+      register: anaconda_install
 
-    - name: Download Anaconda installer
-      get_url:
-        url: "{{ download_url }}"
-        dest: "/tmp/{{ anaconda_installer }}"
-        mode: '0755'
-      when: not anaconda_install.stat.exists
+    # - name: Download Anaconda installer
+    #   get_url:
+    #     url: "{{ download_url }}"
+    #     dest: "/tmp/{{ anaconda_installer }}"
+    #     mode: '0755'
+    #   when: not anaconda_install.stat.exists
 
     - name: Install Anaconda
       command: "bash /tmp/{{ anaconda_installer }} -b -p {{ install_path }}"
