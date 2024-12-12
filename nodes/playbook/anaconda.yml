@@ -45,35 +45,35 @@
         mode: '0755'
       when: not anaconda_install.stat.exists
 
-    # - name: Install Anaconda
-    #   command: "bash /tmp/{{ anaconda_installer }} -b -p {{ install_path }}"
-    #   args:
-    #     creates: "{{ install_path }}"
-    #   when: not anaconda_install.stat.exists
+    - name: Install Anaconda
+      command: "bash /tmp/{{ anaconda_installer }} -b -p {{ install_path }}"
+      args:
+        creates: "{{ install_path }}"
+      when: not anaconda_install.stat.exists
 
-    # - name: Add Anaconda to PATH in bashrc
-    #   blockinfile:
-    #     path: "/home/{{ user }}/.bashrc"
-    #     block: |
-    #       # Anaconda3 path
-    #       export PATH="{{ install_path }}/bin:$PATH"
-    #     marker: "# {mark} ANSIBLE MANAGED BLOCK - ANACONDA"
-    #     create: yes
+    - name: Add Anaconda to PATH in bashrc
+      blockinfile:
+        path: "/home/{{ user }}/.bashrc"
+        block: |
+          # Anaconda3 path
+          export PATH="{{ install_path }}/bin:$PATH"
+        marker: "# {mark} ANSIBLE MANAGED BLOCK - ANACONDA"
+        create: yes
 
-    # - name: Initialize conda for bash shell
-    #   command: "{{ install_path }}/bin/conda init bash"
-    #   become_user: "{{ user }}"
-    #   args:
-    #     creates: "/home/{{ user }}/.conda"
+    - name: Initialize conda for bash shell
+      command: "{{ install_path }}/bin/conda init bash"
+      become_user: "{{ user }}"
+      args:
+        creates: "/home/{{ user }}/.conda"
 
-    # - name: Set correct ownership
-    #   file:
-    #     path: "{{ install_path }}"
-    #     owner: "{{ user }}"
-    #     group: "{{ user }}"
-    #     recurse: yes
+    - name: Set correct ownership
+      file:
+        path: "{{ install_path }}"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        recurse: yes
 
-    # - name: Clean up installer
-    #   file:
-    #     path: "/tmp/{{ anaconda_installer }}"
-    #     state: absent
+    - name: Clean up installer
+      file:
+        path: "/tmp/{{ anaconda_installer }}"
+        state: absent
