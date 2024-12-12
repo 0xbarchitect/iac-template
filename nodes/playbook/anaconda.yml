@@ -73,7 +73,7 @@
     #     group: "{{ user }}"
     #     recurse: yes
 
-    - name: Clean up installer
-      file:
-        path: "/tmp/{{ anaconda_installer }}"
-        state: absent
+    # - name: Clean up installer
+    #   file:
+    #     path: "/tmp/{{ anaconda_installer }}"
+    #     state: absent
