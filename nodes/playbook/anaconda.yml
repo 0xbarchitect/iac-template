@@ -66,12 +66,12 @@
     #   args:
     #     creates: "/home/{{ user }}/.conda"
 
-    - name: Set correct ownership
-      file:
-        path: "{{ install_path }}"
-        owner: "{{ user }}"
-        group: "{{ user }}"
-        recurse: yes
+    # - name: Set correct ownership
+    #   file:
+    #     path: "{{ install_path }}"
+    #     owner: "{{ user }}"
+    #     group: "{{ user }}"
+    #     recurse: yes
 
     - name: Clean up installer
       file:
