@@ -17,26 +17,26 @@
         update_cache: yes
         cache_valid_time: 3600
 
-    # - name: Install required packages
-    #   apt:
-    #     name:
-    #       - curl
-    #       - bzip2
-    #       - libgl1-mesa-glx
-    #       - libegl1-mesa
-    #       - libxrandr2
-    #       - libxss1
-    #       - libxcursor1
-    #       - libxcomposite1
-    #       - libasound2
-    #       - libxi6
-    #       - libxtst6
-    #     state: present
+    - name: Install required packages
+      apt:
+        name:
+          - curl
+          - bzip2
+          - libgl1-mesa-glx
+          - libegl1-mesa
+          - libxrandr2
+          - libxss1
+          - libxcursor1
+          - libxcomposite1
+          - libasound2
+          - libxi6
+          - libxtst6
+        state: present
 
-    - name: Check if Anaconda is already installed
-      stat:
-        path: "{{ install_path }}"
-      register: anaconda_install
+    # - name: Check if Anaconda is already installed
+    #   stat:
+    #     path: "{{ install_path }}"
+    #   register: anaconda_install
 
     - name: Download Anaconda installer
       get_url:
