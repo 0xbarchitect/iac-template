@@ -45,11 +45,11 @@
         mode: '0755'
       when: not anaconda_install.stat.exists
 
-    # - name: Install Anaconda
-    #   command: "bash /tmp/{{ anaconda_installer }} -b -p {{ install_path }}"
-    #   args:
-    #     creates: "{{ install_path }}"
-    #   when: not anaconda_install.stat.exists
+    - name: Install Anaconda
+      command: "bash /tmp/{{ anaconda_installer }} -b -p {{ install_path }}"
+      args:
+        creates: "{{ install_path }}"
+      when: not anaconda_install.stat.exists
 
     - name: Add Anaconda to PATH in bashrc
       blockinfile:
