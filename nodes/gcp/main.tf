@@ -15,7 +15,7 @@ resource "google_compute_instance" "default" {
   machine_type = var.instance_type
   zone         = var.GOOGLE_ZONE
 
-  tags = ["validator-nodes-firewall"]
+  tags = [var.firewall_name]
 
   boot_disk {
     initialize_params {
@@ -35,7 +35,7 @@ resource "google_compute_instance" "default" {
 }
 
 resource "google_compute_firewall" "default" {
-  name    = "validator-nodes-firewall"
+  name    = var.firewall_name
   network = "default"
 
   allow {
@@ -44,5 +44,5 @@ resource "google_compute_firewall" "default" {
   }
 
   source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["validator-nodes-firewall"]
+  target_tags   = [var.firewall_name]
 }

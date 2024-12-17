@@ -28,3 +28,7 @@ variable "instance_number" {
   type        = number
   description = "The number of the GKE node instance"  
 }
+
+variable "firewall_name" {
+  type = string  
+}
