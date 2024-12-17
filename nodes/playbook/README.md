@@ -37,9 +37,9 @@ $ ansible-playbook avalanchecli.yml -i <hosts_file>
 
 - Some commands for debuging and investigation
 ```sh
-$ ansible all --list-hosts -i hosts
-$ ansible all -m ping -i hosts
-$ ansible all -m setup -i hosts
+$ ansible all --list-hosts -i <hosts_file>
+$ ansible all -m ping -i <hosts_file>
+$ ansible all -m setup -i <hosts_file>
 ```
 
 ## Cleanup
