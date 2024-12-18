@@ -35,6 +35,16 @@ $ ansible-playbook avalanchego.yml -i <hosts_file> --tags "testnet"
 $ ansible-playbook avalanchecli.yml -i <hosts_file>
 ```
 
+> 3. Install Nginx
+```sh
+$ ansible-playbook nginx.yml -i <hosts_file>
+```
+
+> 4. Install LetsEncrypt (for https)
+```sh
+$ ansible-playbook letsencrypt.yml -i <hosts_file>
+```
+
 ## Troubleshoot
 
 - Some commands for debuging and investigation

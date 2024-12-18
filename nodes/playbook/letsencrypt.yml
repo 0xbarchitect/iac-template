@@ -1,8 +1,15 @@
 ---
-# playbook-letsencrypt.yml
-- name: Install Let's Encrypt (Certbot) on Ubuntu 20.04
+- name: Install LetsEncrypt (Certbot) on Ubuntu 22.04
   hosts: all
   become: yes
+  gather_facts: yes
+
+  # Verify we're running on Ubuntu 22.04
+  pre_tasks:
+    - name: Check Ubuntu version
+      fail:
+        msg: "This playbook requires Ubuntu 22.04"
+      when: ansible_distribution != 'Ubuntu' or ansible_distribution_version != '22.04'
 
   tasks:
     - name: Update apt cache
@@ -24,5 +31,14 @@
       apt:
         name: 
           - certbot
-          - python3-certbot-nginx  # If using nginx
+          - python3-certbot
         state: present
+
+    - name: Verify Certbot installation
+      command: certbot --version
+      register: certbot_version
+      changed_when: false
+
+    - name: Display Certbot version
+      debug:
+        var: certbot_version.stdout
