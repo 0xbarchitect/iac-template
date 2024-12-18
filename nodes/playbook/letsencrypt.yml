@@ -17,22 +17,53 @@
         update_cache: yes
         cache_valid_time: 3600
 
-    - name: Install software-properties-common
+    - name: Install snapd and dependencies
       apt:
-        name: software-properties-common
+        name:
+          - snapd
+          - gnupg2
+          - ca-certificates
         state: present
 
-    - name: Add Certbot repository
-      apt_repository:
-        repo: ppa:certbot/certbot
+    - name: Ensure snap core is installed
+      command: snap install core
+      register: core_result
+      changed_when: "'already installed' not in core_result.stderr"
+      failed_when: 
+        - core_result.rc != 0 
+        - "'already installed' not in core_result.stderr"
+
+    - name: Ensure snapd service is running
+      service:
+        name: snapd
+        state: started
+        enabled: yes
+
+    - name: Wait for snap service to be ready
+      wait_for:
+        path: /run/snapd.socket
+        state: present
+        timeout: 30
+
+    - name: Refresh snap
+      command: snap refresh
+      register: refresh_result
+      changed_when: "'All snaps up to date.' not in refresh_result.stdout"
+      failed_when: 
+        - refresh_result.rc != 0
+        - "'All snaps up to date.' not in refresh_result.stdout"
+
+    - name: Install Certbot via snap
+      community.general.snap:
+        name: certbot
+        classic: yes
         state: present
 
-    - name: Install Certbot
-      apt:
-        name: 
-          - certbot
-          - python3-certbot
-        state: present
+    - name: Create symlink for certbot
+      file:
+        src: /snap/bin/certbot
+        dest: /usr/bin/certbot
+        state: link
 
     - name: Verify Certbot installation
       command: certbot --version
