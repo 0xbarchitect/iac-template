@@ -21,14 +21,16 @@ $ ansible-playbook avalanchego.yml -i <hosts_file> --tags "testnet" --check
 
 *Note: replace tags with `testnet` or `mainnet` respectively*
 
-- Install AvalancheGo by applying the playbook to hosts
+- After dryrunning, install the packages by following order
+
+> 1.  Install AvalancheGo by applying the playbook to hosts
 ```sh
 $ ansible-playbook avalanchego.yml -i <hosts_file> --tags "testnet"
 ```
 
 *Note: replace tags with `testnet` or `mainnet` respectively*
 
-- Install Avalanche CLI
+> 2. Install Avalanche CLI
 ```sh
 $ ansible-playbook avalanchecli.yml -i <hosts_file>
 ```
