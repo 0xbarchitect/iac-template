@@ -53,7 +53,6 @@ server {
 
     location /  {
         proxy_pass http://localhost:9650;
-	      add_header 'Access-Control-Allow-Origin' '*' always;
 	      proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
@@ -135,7 +134,6 @@ server {
 
     location /  {
         proxy_pass https://localhost:9650;
-	      add_header 'Access-Control-Allow-Origin' '*' always;
 	      proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
