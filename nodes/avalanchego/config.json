@@ -4,5 +4,5 @@
   "http-tls-enabled": true,
   "http-tls-cert-file": "/etc/letsencrypt/live/your.domain/cert.pem",
   "http-tls-key-file": "/etc/letsencrypt/live/your.domain/privkey.pem",
-  "track-subnets": "subnetId"
+  "track-subnets": "<subnetId>"
 }
