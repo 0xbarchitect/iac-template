@@ -11,65 +11,65 @@
         msg: "This playbook requires Ubuntu 22.04"
       when: ansible_distribution != 'Ubuntu' or ansible_distribution_version != '22.04'
 
-  # tasks:
-  #   - name: Update apt cache
-  #     apt:
-  #       update_cache: yes
-  #       cache_valid_time: 3600
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
 
-  #   - name: Install snapd and dependencies
-  #     apt:
-  #       name:
-  #         - snapd
-  #         - gnupg2
-  #         - ca-certificates
-  #       state: present
+    - name: Install snapd and dependencies
+      apt:
+        name:
+          - snapd
+          - gnupg2
+          - ca-certificates
+        state: present
 
-  #   - name: Ensure snap core is installed
-  #     command: snap install core
-  #     register: core_result
-  #     changed_when: "'already installed' not in core_result.stderr"
-  #     failed_when: 
-  #       - core_result.rc != 0 
-  #       - "'already installed' not in core_result.stderr"
+    - name: Ensure snap core is installed
+      command: snap install core
+      register: core_result
+      changed_when: "'already installed' not in core_result.stderr"
+      failed_when: 
+        - core_result.rc != 0 
+        - "'already installed' not in core_result.stderr"
 
-  #   - name: Ensure snapd service is running
-  #     service:
-  #       name: snapd
-  #       state: started
-  #       enabled: yes
+    - name: Ensure snapd service is running
+      service:
+        name: snapd
+        state: started
+        enabled: yes
 
-  #   - name: Wait for snap service to be ready
-  #     wait_for:
-  #       path: /run/snapd.socket
-  #       state: present
-  #       timeout: 30
+    - name: Wait for snap service to be ready
+      wait_for:
+        path: /run/snapd.socket
+        state: present
+        timeout: 30
 
-  #   - name: Refresh snap
-  #     command: snap refresh
-  #     register: refresh_result
-  #     changed_when: "'All snaps up to date.' not in refresh_result.stdout"
-  #     failed_when: 
-  #       - refresh_result.rc != 0
-  #       - "'All snaps up to date.' not in refresh_result.stdout"
+    - name: Refresh snap
+      command: snap refresh
+      register: refresh_result
+      changed_when: "'All snaps up to date.' not in refresh_result.stdout"
+      failed_when: 
+        - refresh_result.rc != 0
+        - "'All snaps up to date.' not in refresh_result.stdout"
 
-  #   - name: Install Certbot via snap
-  #     community.general.snap:
-  #       name: certbot
-  #       classic: yes
-  #       state: present
+    - name: Install Certbot via snap
+      community.general.snap:
+        name: certbot
+        classic: yes
+        state: present
 
-  #   - name: Create symlink for certbot
-  #     file:
-  #       src: /snap/bin/certbot
-  #       dest: /usr/bin/certbot
-  #       state: link
+    - name: Create symlink for certbot
+      file:
+        src: /snap/bin/certbot
+        dest: /usr/bin/certbot
+        state: link
 
-  #   - name: Verify Certbot installation
-  #     command: certbot --version
-  #     register: certbot_version
-  #     changed_when: false
+    - name: Verify Certbot installation
+      command: certbot --version
+      register: certbot_version
+      changed_when: false
 
-  #   - name: Display Certbot version
-  #     debug:
-  #       var: certbot_version.stdout
+    - name: Display Certbot version
+      debug:
+        var: certbot_version.stdout
